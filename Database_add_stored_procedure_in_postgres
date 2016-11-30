@@ -1,0 +1,21 @@
+You must create a SQL file with a content like this but adapted to the new context ( tables and fields ):
+
+CREATE OR REPLACE FUNCTION upsert( in_identification INTEGER, in_user TEXT, in_email TEXT ) RETURNS void as $$
+BEGIN
+ UPDATE user_tbl set identification=in_identification, name=in_user, email=in_email WHERE identification = in_identification; 
+ IF FOUND THEN 
+  RETURN;
+ END IF;
+ BEGIN 
+  INSERT INTO user_tbl ( identification, name, email ) VALUES (in_identification, in_user, in_email );
+ EXCEPTION WHEN OTHERS THEN
+  UPDATE user_tbl set identification=in_identification, name=in_user, email=in_email WHERE identification = in_identification;  
+ END;
+RETURN;
+END;
+$$ language plpgsql;
+
+upsert = the name of the procedure.
+
+To create/change the procedure in the database, switch to postgres user and execute:
+  psql -s DATABASE_NAME -f PATH/FILENAME.sql
