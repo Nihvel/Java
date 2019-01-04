@@ -16,7 +16,8 @@ My class for Database is easy to import in your project.
 
 3.
   Change default url, user and password variables to match your connection
-  3.1
+
+3.1
   UPDATE- If you want to use PgPass, check out the DatabasePgPass class
   
 4.
@@ -25,7 +26,8 @@ My class for Database is easy to import in your project.
 4.1
   Establish a connection:
   Database db = new Database();
-  4.1.1
+
+4.1.1
   For the DatabasePgPass: Database db = new Database(host, port, db, user);
 
 4.2
